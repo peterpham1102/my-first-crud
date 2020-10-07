@@ -15,6 +15,7 @@ public class IndexController {
     @RequestMapping("/login")
     public String Login(){
 
+        System.out.println("WTF");
         return "login/login";
     }
 }
