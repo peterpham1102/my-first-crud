@@ -3,6 +3,8 @@ package com.peterpham.myfirstcrud.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,11 +22,10 @@ public class Product {
     @ManyToOne
     private Supplier supplier;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new LinkedList<>();
 
     public Product(){
 
@@ -68,11 +69,11 @@ public class Product {
         this.description = description;
     }
 
-    public Set<Category> getCategory(){
+    public List<Category> getCategory(){
         return categories;
     }
 
-    public void setCategory(Set<Category> categories){
+    public void setCategory(List<Category> categories){
         this.categories = categories;
     }
 

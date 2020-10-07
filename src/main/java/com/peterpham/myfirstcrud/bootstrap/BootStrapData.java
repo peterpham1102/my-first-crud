@@ -26,9 +26,11 @@ public class BootStrapData implements CommandLineRunner {
 
         Supplier sup1 = new Supplier("Nike", "USA");
         Supplier sup2 = new Supplier("Adidas", "USA");
+        Supplier sup3 = new Supplier("Uniqlo", "JP");
 
         supplierRepository.save(sup1);
         supplierRepository.save(sup2);
+        supplierRepository.save(sup3);
 
         Category cat1 = new Category("Clothes", "This is clothes category");
         Product pro1 = new Product("Nike shirt", "50$", "This is Nike shirt");
@@ -55,14 +57,10 @@ public class BootStrapData implements CommandLineRunner {
         pro2.setSupplier(sup2);
         sup2.getProducts().add(pro2);
 
-        categoryRepository.save(cat2);
-        productRepository.save(pro2);
-        supplierRepository.save(sup2);
 
         System.out.println(pro1);
         System.out.println(cat1);
         System.out.println(sup1);
-
 
 
         cat2.getProducts().add(pro2);

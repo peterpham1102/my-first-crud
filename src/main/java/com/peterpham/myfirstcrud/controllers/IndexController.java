@@ -11,4 +11,10 @@ public class IndexController {
         System.out.println("HELLO");
         return "index";
     }
+
+    @RequestMapping("/login")
+    public String Login(){
+
+        return "login/login";
+    }
 }

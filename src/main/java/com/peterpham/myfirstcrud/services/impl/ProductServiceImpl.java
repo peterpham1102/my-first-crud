@@ -18,23 +18,16 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-//    @Autowired
-//    private CategoryRepository categoryRepository;
-//
-//    @Autowired
-//    private SupplierRepository supplierRepository;
-
-//    public List<Category> getAllCategory() {
-//        return (List<Category>) categoryRepository.findAll();
-//    }
-//
-//    public List<Supplier> getAllSupplier() {
-//        return (List<Supplier>) supplierRepository.findAll();
-//    }
+    public List<Product> listAll(String keyword) {
+            if (keyword != null) {
+                return productRepository.search(keyword);
+            }
+            return productRepository.findAll();
+        }
 
     @Override
     public List<Product> getAllProduct() {
-        return (List<Product>) productRepository.findAll();
+        return productRepository.findAll();
     }
 
     @Override

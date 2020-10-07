@@ -8,11 +8,13 @@ import com.peterpham.myfirstcrud.services.CategoryService;
 import com.peterpham.myfirstcrud.services.ProductService;
 import com.peterpham.myfirstcrud.services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +33,8 @@ public class ProductController {
     @RequestMapping("")
     public String index(Model model){
         List<Product> products = productService.getAllProduct();
-//        List<Category> categories = categoryService.getAllCategory();
-//        List<Supplier> suppliers = supplierService.getAllSupplier();
+//        List<Category> categories = productService.getAllCategory();
+//        List<Supplier> suppliers = productService.getAllSupplier();
 
 
         model.addAttribute("products", products);
@@ -41,6 +43,16 @@ public class ProductController {
 
         return "products/index";
     }
+
+    @RequestMapping(value = "search")
+    public String findProductByName(Model model, @Param("keyword") String keyword){
+        List<Product> products = productService.listAll(keyword);
+        model.addAttribute("products", products);
+        model.addAttribute("keyword", keyword);
+        return "products/index";
+    }
+
+
 
     @RequestMapping(value = "/add")
     public String addProduct(Model model){
@@ -70,5 +82,7 @@ public class ProductController {
 
         return "redirect:/products";
     }
+
+//    @RequestMapping(value = "/search")
 
 }
