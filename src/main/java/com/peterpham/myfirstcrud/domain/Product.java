@@ -1,6 +1,8 @@
 package com.peterpham.myfirstcrud.domain;
 
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Product {
 
     @Id
@@ -19,12 +22,16 @@ public class Product {
     private String price;
     private String description;
 
+    @JsonBackReference
     @ManyToOne
     private Supplier supplier;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+
+//    @JsonIgnore
+//    @JsonProperty(value = "categories")
     private List<Category> categories = new LinkedList<>();
 
     public Product(){

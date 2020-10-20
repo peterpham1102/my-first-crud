@@ -31,21 +31,21 @@ public class ProductController {
     private SupplierService supplierService;
 
     @RequestMapping("")
-    public String index(Model model){
+    public String index(Model model) {
         List<Product> products = productService.getAllProduct();
-//        List<Category> categories = productService.getAllCategory();
-//        List<Supplier> suppliers = productService.getAllSupplier();
+//        List<Category> categories = categoryService.getAllCategory();
+//        List<Supplier> suppliers = supplierService.getAllSupplier();
 
 
         model.addAttribute("products", products);
 //        model.addAttribute("categories", categories);
 //        model.addAttribute("suppliers", suppliers);
-
+//        return products;
         return "products/index";
     }
 
     @RequestMapping(value = "search")
-    public String findProductByName(Model model, @Param("keyword") String keyword){
+    public String findProductByName(Model model, @Param("keyword") String keyword) {
         List<Product> products = productService.listAll(keyword);
         model.addAttribute("products", products);
         model.addAttribute("keyword", keyword);
@@ -53,16 +53,16 @@ public class ProductController {
     }
 
 
-
     @RequestMapping(value = "/add")
-    public String addProduct(Model model){
+    public String addProduct(Model model) {
         model.addAttribute("product", new Product());
+        model.addAttribute("suppliers", supplierService.getAllSupplier());
 
         return "/products/addProduct";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editProduct(@RequestParam("id") Long productId, Model model){
+    public String editProduct(@RequestParam("id") Long productId, Model model) {
         Optional<Product> productEdit = productService.findProductById(productId);
         productEdit.ifPresent(product -> model.addAttribute("product", product));
 
@@ -70,14 +70,14 @@ public class ProductController {
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String saveProduct(Product product){
+    public String saveProduct(Product product) {
         productService.saveProduct(product);
 
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteProduct(@RequestParam("id") Long productId, Model model){
+    public String deleteProduct(@RequestParam("id") Long productId, Model model) {
         productService.deleteProduct(productId);
 
         return "redirect:/products";

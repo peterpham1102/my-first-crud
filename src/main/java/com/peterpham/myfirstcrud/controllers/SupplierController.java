@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/suppliers")
 public class SupplierController {
 
@@ -22,13 +22,20 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @RequestMapping("")
-    public String index(Model model){
+//    public String index(Model model){
+//        List<Supplier> suppliers = supplierService.getAllSupplier();
+//
+//        model.addAttribute("suppliers", suppliers);
+//
+//
+//        return "/suppliers/index";
+//    }
+    public List<Supplier> index(){
         List<Supplier> suppliers = supplierService.getAllSupplier();
 
-        model.addAttribute("suppliers", suppliers);
-
-        return "/suppliers/index";
+        return suppliers;
     }
+
 
     @RequestMapping(value = "/add")
     public String addSupplier(Model model){

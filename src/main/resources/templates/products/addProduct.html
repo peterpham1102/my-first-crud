@@ -26,8 +26,18 @@
                 <input type="text" th:field="*{description}" class="form-control" placeholder="Description"/>
             </div>
             <div style="clear: both; display: block; height: 10px"></div>
+            <div>
+                <label th:text="Supplier" th:for="supplier"></label>
+                <select th:field="*{supplier.id}" class="form-control" id="supplier" name="supplier">
+                    <option th:each="supplier : ${suppliers}"
+                            th:value="${supplier.id}"
+                            th:text="${supplier.name}"></option>
+                </select>
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
             <input type="submit" class="btn btn-success" value="Save"/>
         </form>
+
     </div>
 </div>
 </body>

@@ -19,11 +19,11 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     public List<Product> listAll(String keyword) {
-            if (keyword != null) {
-                return productRepository.search(keyword);
-            }
-            return productRepository.findAll();
+        if (keyword != null) {
+            return productRepository.search(keyword);
         }
+        return productRepository.findAll();
+    }
 
     @Override
     public List<Product> getAllProduct() {
